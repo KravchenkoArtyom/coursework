@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище MoviesModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Countries">
+    <Key>
+      <PropertyRef Name="CountryName" />
+    </Key>
+    <Property Name="CountryName" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Directors">
+    <Key>
+      <PropertyRef Name="DirectorID" />
+    </Key>
+    <Property Name="DirectorID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DirectorName" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Genres">
+    <Key>
+      <PropertyRef Name="GenreName" />
+    </Key>
+    <Property Name="GenreName" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MovieCountry">
+    <Key>
+      <PropertyRef Name="MovieID" />
+      <PropertyRef Name="CountryName" />
+    </Key>
+    <Property Name="MovieID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MovieDirector">
+    <Key>
+      <PropertyRef Name="MovieID" />
+      <PropertyRef Name="DirectorID" />
+    </Key>
+    <Property Name="MovieID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DirectorID" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MovieGenre">
+    <Key>
+      <PropertyRef Name="MovieID" />
+      <PropertyRef Name="GenreName" />
+    </Key>
+    <Property Name="MovieID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="GenreName" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Movies">
+    <Key>
+      <PropertyRef Name="MovieID" />
+    </Key>
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Synopsis" Type="nvarchar(max)" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Duration" Type="int" Nullable="false" />
+    <Property Name="Rate" Type="real" Nullable="false" />
+    <Property Name="MovieID" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_MovieCountry_dbo_Countries_CountryName">
+    <End Role="Countries" Type="Self.Countries" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MovieCountry" Type="Self.MovieCountry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Countries">
+        <PropertyRef Name="CountryName" />
+      </Principal>
+      <Dependent Role="MovieCountry">
+        <PropertyRef Name="CountryName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MovieCountry_dbo_Movies_MovieID">
+    <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MovieCountry" Type="Self.MovieCountry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movies">
+        <PropertyRef Name="MovieID" />
+      </Principal>
+      <Dependent Role="MovieCountry">
+        <PropertyRef Name="MovieID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MovieDirector_dbo_Directors_DirectorID">
+    <End Role="Directors" Type="Self.Directors" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MovieDirector" Type="Self.MovieDirector" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Directors">
+        <PropertyRef Name="DirectorID" />
+      </Principal>
+      <Dependent Role="MovieDirector">
+        <PropertyRef Name="DirectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MovieDirector_dbo_Movies_MovieID">
+    <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MovieDirector" Type="Self.MovieDirector" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movies">
+        <PropertyRef Name="MovieID" />
+      </Principal>
+      <Dependent Role="MovieDirector">
+        <PropertyRef Name="MovieID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MovieGenre_dbo_Genres_GenreName">
+    <End Role="Genres" Type="Self.Genres" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MovieGenre" Type="Self.MovieGenre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genres">
+        <PropertyRef Name="GenreName" />
+      </Principal>
+      <Dependent Role="MovieGenre">
+        <PropertyRef Name="GenreName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MovieGenre_dbo_Movies_MovieID">
+    <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MovieGenre" Type="Self.MovieGenre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movies">
+        <PropertyRef Name="MovieID" />
+      </Principal>
+      <Dependent Role="MovieGenre">
+        <PropertyRef Name="MovieID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище MoviesModelContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Directors" EntityType="Self.Directors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MovieCountry" EntityType="Self.MovieCountry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MovieDirector" EntityType="Self.MovieDirector" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MovieGenre" EntityType="Self.MovieGenre" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_MovieCountry_dbo_Countries_CountryName" Association="Self.FK_dbo_MovieCountry_dbo_Countries_CountryName">
+      <End Role="Countries" EntitySet="Countries" />
+      <End Role="MovieCountry" EntitySet="MovieCountry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MovieCountry_dbo_Movies_MovieID" Association="Self.FK_dbo_MovieCountry_dbo_Movies_MovieID">
+      <End Role="Movies" EntitySet="Movies" />
+      <End Role="MovieCountry" EntitySet="MovieCountry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MovieDirector_dbo_Directors_DirectorID" Association="Self.FK_dbo_MovieDirector_dbo_Directors_DirectorID">
+      <End Role="Directors" EntitySet="Directors" />
+      <End Role="MovieDirector" EntitySet="MovieDirector" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MovieDirector_dbo_Movies_MovieID" Association="Self.FK_dbo_MovieDirector_dbo_Movies_MovieID">
+      <End Role="Movies" EntitySet="Movies" />
+      <End Role="MovieDirector" EntitySet="MovieDirector" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MovieGenre_dbo_Genres_GenreName" Association="Self.FK_dbo_MovieGenre_dbo_Genres_GenreName">
+      <End Role="Genres" EntitySet="Genres" />
+      <End Role="MovieGenre" EntitySet="MovieGenre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MovieGenre_dbo_Movies_MovieID" Association="Self.FK_dbo_MovieGenre_dbo_Movies_MovieID">
+      <End Role="Movies" EntitySet="Movies" />
+      <End Role="MovieGenre" EntitySet="MovieGenre" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

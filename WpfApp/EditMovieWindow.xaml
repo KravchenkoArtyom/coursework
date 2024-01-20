@@ -1,0 +1,43 @@
+﻿<Window x:Class="WpfApp.EditMovieWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактировать фильм" Height="450" Width="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
+            <Label Content="Название"/>
+            <TextBox x:Name="NameTextBox" Text="{Binding Name}" />
+
+            <Label Content="Синопсис"/>
+            <TextBox x:Name="SynopsisTextBox" Text="{Binding Synopsis}" />
+
+            <Label Content="Год выпуска"/>
+            <TextBox x:Name="YearTextBox" Text="{Binding Year}" />
+            
+            <Label Content="Продолжительность фильма"/>
+            <TextBox x:Name="DurationTextBox" Text="{Binding Duration}"/>
+            
+            <Label Content="Рейтинг Letterbox"/>
+            <TextBox x:Name="RateTextBox" Text="{Binding Rate}"/>
+
+            <Label Content="Жанры"/>
+            <ListBox x:Name="GenresListBox" 
+             ItemsSource="{Binding Genres}" 
+             DisplayMemberPath="GenreName" 
+             SelectionMode="Extended" />
+
+            <Label Content="Страны"/>
+            <ListBox x:Name="CountriesListBox" 
+             ItemsSource="{Binding Countries}" 
+             DisplayMemberPath="CountryName" 
+             SelectionMode="Extended" />
+
+            <Label Content="Режиссеры"/>
+            <ListBox x:Name="DirectorsListBox" 
+             ItemsSource="{Binding Directors}" 
+             DisplayMemberPath="DirectorName" 
+             SelectionMode="Extended" />
+
+            <Button Content="Сохранить" Click="SaveButton_Click" Margin="0,10,0,0" Height="30" />
+        </StackPanel>
+    </ScrollViewer>
+</Window>

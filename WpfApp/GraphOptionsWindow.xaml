@@ -1,0 +1,45 @@
+﻿<Window x:Class="WpfApp.GraphOptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="GraphOptionsWindow" Height="426.563" Width="1038.186">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="SecondParameterComboBox" Grid.Row="0" Grid.Column="0" Margin="5"/>
+        <ComboBox x:Name="FirstParameterComboBox" Grid.Row="1" Grid.Column="0" Margin="5"/>
+        <Button x:Name="BuildGraph" Grid.Row="2" Grid.Column="0" Content="Построить график" Margin="5" Click="BuildGraph_Click"/>
+        <Button x:Name="ExportGraph" Grid.Row="3" Grid.Column="0" Content="Экспортировать график" Margin="5" Click="ExportGraph_Click" IsEnabled="False"/>
+        <Button x:Name="ReportButton" Grid.Row="4" Content="Сформировать отчет" Margin="5,118.4,5.4,96.8" Click="ReportButton_Click" IsEnabled="False"/>
+        <TextBox x:Name="FindMovie" Text="Введите название фильма" Grid.Row="4"
+         Margin="1,9.4,827,201.8" TextChanged="FindMovie_TextChanged"
+         GotFocus="FindMovie_GotFocus" Grid.ColumnSpan="2" />
+
+        <ListBox x:Name="SearchResultsListBox" Grid.Row="5" Visibility="Collapsed"
+         Width="{Binding ActualWidth, ElementName=FindMovie}"
+         SelectionChanged="SearchResultsListBox_SelectionChanged"
+         Panel.ZIndex="1000"/>
+
+        <TextBox x:Name="FindCountry" Text="Введите название страны" Grid.Row="5" TextChanged="FindCountry_TextChanged"
+                 GotFocus="FindCountry_GotFocus" Margin="0,67.4,827,141.8" Grid.ColumnSpan="2"/>
+        <ListBox x:Name="SearchCountryListBox" Grid.Row="6" Visibility="Collapsed"
+                 Width="{Binding ActualWidth,ElementName=FindCountry}"
+                 SelectionChanged="SearchResultsListBoxCountry_SelectionChanged"/>
+
+        <oxy:PlotView x:Name="MyPlotView" Grid.Column="1" Margin="76,0,0,9.8" Grid.RowSpan="5"/>
+    </Grid>
+
+</Window>

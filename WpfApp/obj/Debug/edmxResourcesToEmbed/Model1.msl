@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище MoviesModelContainer" CdmEntityContainer="MoviesEntities1">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="MoviesModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="MoviesModel.Countries">
+        <MappingFragment StoreEntitySet="Countries">
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Directors">
+      <EntityTypeMapping TypeName="MoviesModel.Directors">
+        <MappingFragment StoreEntitySet="Directors">
+          <ScalarProperty Name="DirectorID" ColumnName="DirectorID" />
+          <ScalarProperty Name="DirectorName" ColumnName="DirectorName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Genres">
+      <EntityTypeMapping TypeName="MoviesModel.Genres">
+        <MappingFragment StoreEntitySet="Genres">
+          <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Movies">
+      <EntityTypeMapping TypeName="MoviesModel.Movies">
+        <MappingFragment StoreEntitySet="Movies">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Synopsis" ColumnName="Synopsis" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="MovieID" ColumnName="MovieID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MovieCountry" TypeName="MoviesModel.MovieCountry" StoreEntitySet="MovieCountry">
+      <EndProperty Name="Countries">
+        <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+      </EndProperty>
+      <EndProperty Name="Movies">
+        <ScalarProperty Name="MovieID" ColumnName="MovieID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MovieDirector" TypeName="MoviesModel.MovieDirector" StoreEntitySet="MovieDirector">
+      <EndProperty Name="Directors">
+        <ScalarProperty Name="DirectorID" ColumnName="DirectorID" />
+      </EndProperty>
+      <EndProperty Name="Movies">
+        <ScalarProperty Name="MovieID" ColumnName="MovieID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MovieGenre" TypeName="MoviesModel.MovieGenre" StoreEntitySet="MovieGenre">
+      <EndProperty Name="Genres">
+        <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+      </EndProperty>
+      <EndProperty Name="Movies">
+        <ScalarProperty Name="MovieID" ColumnName="MovieID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

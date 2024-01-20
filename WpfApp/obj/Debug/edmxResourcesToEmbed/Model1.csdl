@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MoviesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Countries">
+    <Key>
+      <PropertyRef Name="CountryName" />
+    </Key>
+    <Property Name="CountryName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Movies" Relationship="Self.MovieCountry" FromRole="Countries" ToRole="Movies" />
+  </EntityType>
+  <EntityType Name="Directors">
+    <Key>
+      <PropertyRef Name="DirectorID" />
+    </Key>
+    <Property Name="DirectorID" Type="Guid" Nullable="false" />
+    <Property Name="DirectorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Movies" Relationship="Self.MovieDirector" FromRole="Directors" ToRole="Movies" />
+  </EntityType>
+  <EntityType Name="Genres">
+    <Key>
+      <PropertyRef Name="GenreName" />
+    </Key>
+    <Property Name="GenreName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Movies" Relationship="Self.MovieGenre" FromRole="Genres" ToRole="Movies" />
+  </EntityType>
+  <EntityType Name="Movies">
+    <Key>
+      <PropertyRef Name="MovieID" />
+    </Key>
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Synopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Duration" Type="Int32" Nullable="false" />
+    <Property Name="Rate" Type="Single" Nullable="false" />
+    <Property Name="MovieID" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Countries" Relationship="Self.MovieCountry" FromRole="Movies" ToRole="Countries" />
+    <NavigationProperty Name="Directors" Relationship="Self.MovieDirector" FromRole="Movies" ToRole="Directors" />
+    <NavigationProperty Name="Genres" Relationship="Self.MovieGenre" FromRole="Movies" ToRole="Genres" />
+  </EntityType>
+  <Association Name="MovieCountry">
+    <End Role="Countries" Type="Self.Countries" Multiplicity="*" />
+    <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+  </Association>
+  <Association Name="MovieDirector">
+    <End Role="Directors" Type="Self.Directors" Multiplicity="*" />
+    <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+  </Association>
+  <Association Name="MovieGenre">
+    <End Role="Genres" Type="Self.Genres" Multiplicity="*" />
+    <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="MoviesEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="Countries" EntityType="Self.Countries" />
+    <EntitySet Name="Directors" EntityType="Self.Directors" />
+    <EntitySet Name="Genres" EntityType="Self.Genres" />
+    <EntitySet Name="Movies" EntityType="Self.Movies" />
+    <AssociationSet Name="MovieCountry" Association="Self.MovieCountry">
+      <End Role="Countries" EntitySet="Countries" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+    <AssociationSet Name="MovieDirector" Association="Self.MovieDirector">
+      <End Role="Directors" EntitySet="Directors" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+    <AssociationSet Name="MovieGenre" Association="Self.MovieGenre">
+      <End Role="Genres" EntitySet="Genres" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
